@@ -18,7 +18,7 @@
         </div>
         <span :style="isDarkMode ? 'color: #a78bfa;' : 'color: #8b5cf6;'">{{ useWebsite.webInfo?.websiteName }}</span>
       </div>
-      
+
       <ul class="menu-items">
         <!-- 首页 -->
         <li class="menu-item" @click="navigateTo('/')">
@@ -30,7 +30,7 @@
           </div>
           <span>首页</span>
         </li>
-        
+
         <!-- 归档 - 与系统菜单对应 -->
         <li class="menu-item has-submenu">
           <div class="menu-item-content">
@@ -79,7 +79,7 @@
             </li>
           </ul>
         </li>
-        
+
         <!-- 其他 - 与系统菜单对应 -->
         <li class="menu-item has-submenu">
           <div class="menu-item-content">
@@ -128,7 +128,7 @@
             </li>
           </ul>
         </li>
-        
+
         <!-- 友链 -->
         <li class="menu-item" @click="navigateTo('/link')">
           <div class="menu-item-icon">
@@ -139,9 +139,9 @@
           </div>
           <span>友链</span>
         </li>
-        
+
         <!-- 音乐 -->
-        <li class="menu-item" @click="navigateTo('/music')">
+        <li class="menu-item"v-if="env.VITE_MUSIC_FRONTEND_URL" @click="navigateTo('/music')">
           <div class="menu-item-icon">
             <svg viewBox="0 0 24 24" width="24" height="24" :stroke="isDarkMode ? '#a78bfa' : '#8b5cf6'" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
               <path d="M9 18V5l12-2v13"></path>
@@ -151,7 +151,7 @@
           </div>
           <span>音乐</span>
         </li>
-        
+
         <!-- 相册 -->
         <li class="menu-item" @click="navigateTo('/photo')">
           <div class="menu-item-icon">
@@ -163,9 +163,9 @@
           </div>
           <span>相册</span>
         </li>
-        
+
         <li class="menu-divider" :style="isDarkMode ? 'background: #372f52;' : 'background: #f0e6ff;'"></li>
-        
+
         <!-- 刷新页面 - 特殊样式 -->
         <li class="menu-item refresh-item" @click="handleRefresh">
           <div class="menu-item-icon">
@@ -188,7 +188,7 @@ import { useRouter } from 'vue-router';
 import useWebsiteStore from "@/store/modules/website.ts";
 
 const useWebsite = useWebsiteStore()
-
+const env = import.meta.env
 const router = useRouter();
 const isVisible = ref(false);
 const x = ref(0);
@@ -202,38 +202,38 @@ const isDarkMode = computed(() => {
 // 显示菜单
 const showMenu = (event: MouseEvent) => {
   event.preventDefault();
-  
+
   // 计算位置，确保菜单不会超出窗口
   const menuWidth = 240; // 菜单宽度
   const submenuWidth = 180; // 子菜单宽度
   const menuHeight = 370; // 预估菜单高度（减小高度，确保更好定位）
-  
+
   // 初始位置为鼠标位置
   let posX = event.clientX;
   let posY = event.clientY;
-  
+
   // 如果菜单会超出右边界，向左显示
   // 同时考虑子菜单需要的空间
   if (posX + menuWidth + submenuWidth > window.innerWidth) {
     posX = Math.max(10, window.innerWidth - menuWidth - 10);
   }
-  
+
   // 如果菜单会超出下边界，则向上显示
   if (posY + menuHeight > window.innerHeight) {
     posY = Math.max(10, window.innerHeight - menuHeight - 10);
   }
-  
+
   x.value = posX;
   y.value = posY;
   isVisible.value = true;
-  
+
   // 关闭所有可能打开的子菜单
   setTimeout(() => {
     document.querySelectorAll('.has-submenu').forEach(item => {
       item.classList.remove('active');
     });
   }, 50);
-  
+
   // 确保子菜单位置正确显示
   nextTick(() => {
     adjustSubmenuPositions();
@@ -245,32 +245,32 @@ const adjustSubmenuPositions = () => {
   document.querySelectorAll('.submenu').forEach(submenu => {
     const submenuEl = submenu as HTMLElement;
     const parentItem = submenuEl.closest('.has-submenu') as HTMLElement;
-    
+
     // 重置之前可能的样式调整
     submenuEl.style.left = '100%';
     submenuEl.style.right = 'auto';
     submenuEl.style.top = '0';
-    
+
     // 添加延迟以确保样式重置生效
     setTimeout(() => {
       const rect = submenuEl.getBoundingClientRect();
       const parentRect = parentItem.getBoundingClientRect();
-      
+
       // 如果子菜单超出右边界，向左显示
       if (rect.right > window.innerWidth) {
         submenuEl.style.left = 'auto';
         submenuEl.style.right = '100%';
       }
-      
+
       // 如果子菜单超出下边界，调整位置
       if (rect.bottom > window.innerHeight) {
         // 先尝试上对齐
         let newTop = 0;
-        
+
         // 计算顶部可用空间
         const availableTopSpace = parentRect.top;
         const availableBottomSpace = window.innerHeight - parentRect.bottom;
-        
+
         if (rect.height > availableBottomSpace && availableTopSpace > availableBottomSpace) {
           // 如果底部空间不足且顶部空间更大，则让子菜单显示在父菜单顶部对齐
           newTop = -rect.height + parentRect.height;
@@ -279,7 +279,7 @@ const adjustSubmenuPositions = () => {
           const overflowHeight = Math.min(rect.bottom - window.innerHeight, rect.height - parentRect.height);
           newTop = -overflowHeight;
         }
-        
+
         submenuEl.style.top = `${newTop}px`;
       }
     }, 0);
@@ -316,17 +316,17 @@ const handleSubmenuActivation = (event: Event) => {
   const target = event.currentTarget as HTMLElement;
   const parentLi = target.closest('.has-submenu') as HTMLElement;
   const hasSubmenuElements = document.querySelectorAll('.has-submenu');
-  
+
   // 先清除所有激活状态
   hasSubmenuElements.forEach(el => {
     if (el !== parentLi) {
       el.classList.remove('active');
     }
   });
-  
+
   // 切换当前元素的激活状态
   parentLi.classList.toggle('active');
-  
+
   // 阻止事件冒泡，避免触发hideMenu
   event.stopPropagation();
 };
@@ -476,7 +476,7 @@ html[class='dark'] .menu-divider {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-html[class='dark'] .menu-item:hover, 
+html[class='dark'] .menu-item:hover,
 html[class='dark'] .menu-item-content:hover {
   background-color: #352e54;
 }
@@ -633,4 +633,4 @@ html[class='dark'] .submenu-item:hover .submenu-item-icon svg {
   font-weight: 600;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
-</style> 
+</style>

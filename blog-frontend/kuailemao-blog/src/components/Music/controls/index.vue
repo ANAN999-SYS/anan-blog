@@ -81,13 +81,14 @@ defineComponent({
   }
 
   .music-body {
-    padding: 8px 1rem 0px 1rem !important;
+    padding: 8px 4px 0px 4px !important;
     &__left {
       width: 30% !important;
     }
 
     &__right {
       width: 70% !important;
+      margin-left: 12px !important;
     }
   }
 }

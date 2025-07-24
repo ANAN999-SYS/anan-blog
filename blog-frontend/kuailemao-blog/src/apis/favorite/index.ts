@@ -1,5 +1,24 @@
 import http from "@/utils/http.ts";
-
+export function getFavoriteArticleList(pageNum: Number, pageSize: Number) {
+    return http({
+        url: '/favorite/favoriteArticleList',
+        method: 'get',
+        params: {
+            pageNum,
+            pageSize
+        }
+    })
+}
+export function getFavoriteLeaveWordList(pageNum: Number, pageSize: Number) {
+    return http({
+        url: '/favorite/favoriteLeaveWordList',
+        method: 'get',
+        params: {
+            pageNum,
+            pageSize
+        }
+    })
+}
 // 收藏
 export const userFavorite = (type: number,typeId: string) => {
     return http.request({

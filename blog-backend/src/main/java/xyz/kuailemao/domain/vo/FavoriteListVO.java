@@ -15,6 +15,8 @@ public class FavoriteListVO {
     private Long id;
     //收藏的用户姓名
     private String userName;
+    //收藏用户邮箱
+    private String userEmail;
     //收藏类型(1,文章 2,留言板)
     private Integer type;
     // 收藏内容

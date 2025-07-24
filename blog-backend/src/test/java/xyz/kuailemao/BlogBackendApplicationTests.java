@@ -8,14 +8,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @SpringBootTest
 class BlogBackendApplicationTests {
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-
-    @Test
-    void contextLoads() throws Exception {
-//        String encode = passwordEncoder.encode("123456");
-//        System.out.println(encode);
-    }
+//    @Autowired
+//    private PasswordEncoder passwordEncoder;
+//
+//
+//    @Test
+//    void contextLoads() throws Exception {
+////        String encode = passwordEncoder.encode("123456");
+////        System.out.println(encode);
+//    }
 
 }

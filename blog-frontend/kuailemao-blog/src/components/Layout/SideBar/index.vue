@@ -25,7 +25,7 @@
     <div>
       <TagListCard/>
     </div>
-    <ChargingList/>
+<!--    <ChargingList/>-->
     <div>
       <Card title="每日鸡汤" prefix-icon="edit" suffix-icon="rotate" :isRotate="true" :isScale="true" @invoke="soupSub">
         <div class="soup-container">
@@ -91,7 +91,7 @@ const soup = ref('')
 
 function soupSub() {
   getSoup().then((res: any) => {
-    soup.value = res.hitokoto
+    soup.value = res.message
   })
 }
 
@@ -107,7 +107,7 @@ function announcement() {
 
 onMounted(() => {
   getSoup().then((res: any) => {
-    soup.value = res.hitokoto
+    soup.value = res.message
   })
 })
 
@@ -125,7 +125,7 @@ onMounted(() => {
   left: 50%;
   transform: translateX(-50%);
   z-index: 1;
-  
+
   img {
     max-height: 120px;
     width: auto;

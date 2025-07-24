@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import {getArticleList} from "@/apis/home";
 import {ElMessage} from "element-plus";
-import usePaginationStore from "@/store/modules/pagination";
 import {useWindowSize} from "@vueuse/core";
+import usePaginationStore from "@/store/modules/pagination.ts";
+import {getArticleList} from "@/apis/home";
 
 const articleList = ref([]);
 
@@ -14,13 +14,16 @@ watch(() => paginationStore.articlePagination.current, () => {
   // 滚动到顶部
   window.scrollTo(0, 300);
 })
-
+const isGetArticleList = ref(true)
 // 屏幕宽度
 const { width } = useWindowSize()
 
 function getArticleListFunc() {
+  articleList.value=[]
+  isGetArticleList.value = true
   getArticleList(paginationStore.articlePagination.current, paginationStore.articlePagination.pageSize).then(res => {
     if (res.code === 200) {
+      isGetArticleList.value = false;
       paginationStore.articlePagination.total = res.data.total;
       // 过滤内容
       res.data.page = res.data.page.map((item: any) => {
@@ -102,8 +105,13 @@ function loadContent() {
       </div>
     </template>
   </div>
-  <template v-if="articleList.length == 0">
+  <template v-if="articleList.length == 0&&isGetArticleList">
     <el-skeleton :rows="8" animated />
+  </template>
+  <template v-if="!isGetArticleList&&articleList.length == 0">
+    <div style="display:flex;justify-content:center;align-items:center;height:88px">
+      <div>此处啥也没有~~</div>
+    </div>
   </template>
 </template>
 

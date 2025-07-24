@@ -275,9 +275,9 @@ function getEmailCode(){
                   </el-form-item>
                   <el-form-item label="性别">
                     <el-radio-group v-model="accountForm.gender">
-                      <el-radio :label="1">男</el-radio>
-                      <el-radio :label="2">女</el-radio>
-                      <el-radio :label="0">保密</el-radio>
+                      <el-radio class="el-radio-cur" :label="1">男</el-radio>
+                      <el-radio class="el-radio-cur"  :label="2">女</el-radio>
+                      <el-radio class="el-radio-cur"  :label="0">保密</el-radio>
                     </el-radio-group>
                   </el-form-item>
                   <el-form-item label="个人简介">
@@ -366,6 +366,7 @@ function getEmailCode(){
   width: 178px;
   height: 178px;
   display: block;
+
 }
 
 .el-icon.avatar-uploader-icon {
@@ -376,7 +377,6 @@ function getEmailCode(){
   height: 140px;
   text-align: center;
 }
-
 .avatar-uploader :hover {
   border-color: var(--el-color-primary);
 }

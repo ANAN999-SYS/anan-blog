@@ -100,8 +100,8 @@ function changeToggle({detail}) {
         <SvgIcon name="directory_icon" width="30" height="30" color="#409EFF" class="icon"/>
       </div>
       <!-- 移动端日夜切换 -->
-      <div style="margin-left: 5rem">
-        <toggle-button @change="changeToggle" size="1"></toggle-button>
+      <div class="toggle-button"  >
+        <toggle-button id="toggle-button" @change="changeToggle" size="1"></toggle-button>
       </div>
     </div>
 
@@ -145,7 +145,7 @@ function changeToggle({detail}) {
               <el-avatar style="margin-right: 3rem"
                          :src="userStore.userInfo?.avatar"></el-avatar>
               <template #dropdown>
-                <el-dropdown-item @click="router.push('/setting')">
+                <el-dropdown-item  @click="router.push('/setting')" style="cursor: url(/static/cur/Link.gif), auto !important;">
                   <template #default>
                     <el-icon>
                       <Setting/>
@@ -153,15 +153,15 @@ function changeToggle({detail}) {
                     个人设置
                   </template>
                 </el-dropdown-item>
-                <!--                  <el-dropdown-item>-->
-                <!--                    <template #default>-->
-                <!--                      <el-icon>-->
-                <!--                        <Collection/>-->
-                <!--                      </el-icon>-->
-                <!--                      我的收藏-->
-                <!--                    </template>-->
-                <!--                  </el-dropdown-item>-->
-                <el-dropdown-item @click="logoutSub">
+                <el-dropdown-item @click="router.push('/collection')" style="cursor: url(/static/cur/Link.gif), auto !important;">
+                  <template #default>
+                    <el-icon>
+                      <Collection/>
+                    </el-icon>
+                    我的收藏
+                  </template>
+                </el-dropdown-item>
+                <el-dropdown-item @click="logoutSub" style="cursor: url(/static/cur/Link.gif), auto !important;">
                   <template #default>
                     <el-icon>
                       <Promotion/>
@@ -211,7 +211,9 @@ function changeToggle({detail}) {
   @media screen and (min-width: 910px) {
     display: none;
   }
-
+  .toggle-button{
+    margin-left: 5rem;
+  }
   .right_nav {
     display: flex;
   }

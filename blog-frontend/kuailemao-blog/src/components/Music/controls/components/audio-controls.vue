@@ -5,17 +5,13 @@
  -->
 <script setup>
 import { defineComponent, onMounted } from "vue";
-
 import { storeToRefs } from "pinia";
 import { music } from "@/store/modules/music";
-
 import { ElNotification } from "element-plus";
 import { calcMusicTime } from "../../musicTool";
-
 defineComponent({
   name: "AudioControls",
 });
-
 // 音乐播放器的一些参数 使用storetoRefs是为了保持数据的响应式
 const { getIsPaused, getCurrentTime, getDuration } = storeToRefs(music());
 
@@ -32,11 +28,10 @@ const prev = async () => {
 const next = async () => {
   music().setNext(true);
 };
-
 onMounted(() => {
   ElNotification({
     offset: 60,
-    title: "欢迎访问我的个人博客~",
+    title: "欢迎来到岸岸的个人博客～",
   });
   music().init();
   ElNotification({

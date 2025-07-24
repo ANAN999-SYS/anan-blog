@@ -22,6 +22,7 @@ import pinia from '@/store'
 import vSlideIn from '@/directives/vSlideIn.ts'
 import vLazy from '@/directives/vLazy.ts'
 import vViewRequest from '@/directives/vViewRequest.ts'
+import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 
 // 获取应用实例对象
 const app = createApp(App)
@@ -34,5 +35,7 @@ app.use(gloablComponent)
 app.use(router)
 // 设置pinia
 app.use(pinia)
-
+for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+    app.component(key, component)
+}
 app.mount('#app')

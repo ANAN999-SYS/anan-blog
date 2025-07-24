@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 import xyz.kuailemao.constants.Const;
-import xyz.kuailemao.domain.response.ResponseResult;
 import xyz.kuailemao.enums.UploadEnum;
 import xyz.kuailemao.exceptions.FileUploadException;
 
@@ -37,9 +36,8 @@ public class FileUploadUtils {
     @Value("${minio.bucketName}")
     private String bucketName;
 
-    @Value("${minio.endpoint}")
-    private String endpoint;
-
+    @Value("${minio.proxy}")
+    private String proxy;
     /**
      * 上传文件
      *
@@ -60,7 +58,7 @@ public class FileUploadUtils {
                     .stream(stream, file.getSize(), -1)
                     .build();
             client.putObject(args);
-            return endpoint + "/" + bucketName + "/" + uploadEnum.getDir() + name + "." + getFileExtension(file.getOriginalFilename());
+            return "/" + proxy + "/" + uploadEnum.getDir() + name + "." + getFileExtension(file.getOriginalFilename());
         }
         log.error("--------------------上传文件格式不正确--------------------");
         throw new FileUploadException("上传文件类型错误");
@@ -85,7 +83,7 @@ public class FileUploadUtils {
                     .stream(stream, file.getSize(), -1)
                     .build();
             client.putObject(args);
-            return endpoint + "/" + bucketName + "/" + uploadEnum.getDir() + fileName + "." + getFileExtension(file.getOriginalFilename());
+            return  "/" + proxy + "/" + uploadEnum.getDir() + fileName + "." + getFileExtension(file.getOriginalFilename());
         }
         log.error("--------------------上传文件格式不正确--------------------");
         throw new FileUploadException("上传文件类型错误");
@@ -110,7 +108,7 @@ public class FileUploadUtils {
                     .stream(stream, file.getSize(), -1)
                     .build();
             client.putObject(args);
-            return endpoint + "/" + bucketName + "/" + uploadEnum.getDir() + dir + "/" + fileName + "." + getFileExtension(file.getOriginalFilename());
+            return  "/" + proxy + "/" + uploadEnum.getDir() + dir + "/" + fileName + "." + getFileExtension(file.getOriginalFilename());
         }
         log.error("--------------------上传文件格式不正确--------------------");
         throw new FileUploadException("上传文件类型错误");
@@ -156,7 +154,6 @@ public class FileUploadUtils {
         }
         return true;
     }
-
     /**
      * B 转 MB
      *

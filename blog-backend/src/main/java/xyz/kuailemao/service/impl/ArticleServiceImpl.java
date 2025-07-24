@@ -115,6 +115,52 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
         return new PageVO<>(articleVOS, page.getTotal());
     }
+    @Override
+    public ArticleVO getArticleById(Long articleId) {
+        // 校验文章ID是否存在
+        if (articleId == null) {
+            throw new IllegalArgumentException("文章ID不能为空");
+        }
+
+        // 查询文章基本信息
+        Article article = this.getById(articleId);
+        if (article == null) {
+            return null; // 或抛出文章不存在的异常
+        }
+
+        // 转换为VO对象
+        ArticleVO articleVO = article.asViewObject(ArticleVO.class);
+
+        // 查询并设置分类名称
+        Category category = categoryMapper.selectById(article.getCategoryId());
+        if (category != null) {
+            articleVO.setCategoryName(category.getCategoryName());
+        }
+
+        // 查询并设置标签
+        List<ArticleTag> articleTags = articleTagMapper.selectList(
+                new LambdaQueryWrapper<ArticleTag>().eq(ArticleTag::getArticleId, articleId)
+        );
+        if (!articleTags.isEmpty()) {
+            List<Long> tagIds = articleTags.stream().map(ArticleTag::getTagId).toList();
+            List<Tag> tags = tagMapper.selectBatchIds(tagIds);
+            articleVO.setTags(tags.stream().map(Tag::getTagName).toList());
+        }
+
+        // 检查Redis缓存是否存在
+        boolean hasKey = redisCache.isHasKey(RedisConst.ARTICLE_COMMENT_COUNT) &&
+                redisCache.isHasKey(RedisConst.ARTICLE_FAVORITE_COUNT) &&
+                redisCache.isHasKey(RedisConst.ARTICLE_LIKE_COUNT);
+
+        // 从缓存获取计数信息
+        if (hasKey) {
+            setArticleCount(articleVO, RedisConst.ARTICLE_FAVORITE_COUNT, CountTypeEnum.FAVORITE);
+            setArticleCount(articleVO, RedisConst.ARTICLE_LIKE_COUNT, CountTypeEnum.LIKE);
+            setArticleCount(articleVO, RedisConst.ARTICLE_COMMENT_COUNT, CountTypeEnum.COMMENT);
+        }
+
+        return articleVO;
+    }
 
     private void setArticleCount(ArticleVO articleVO, String redisKey, CountTypeEnum articleFieldName) {
         String articleId = articleVO.getId().toString();

@@ -7,7 +7,7 @@
 import MusicList from "./list/index.vue";
 import MusicControl from "./controls/index.vue";
 import { defineComponent, ref, watch } from "vue";
-import blogAvatar from "@/assets/images/blogAvatar.svg";
+import blogAvatar from "@/assets/images/blogAvatar.png";
 
 import { music } from "@/store/modules/music";
 import { storeToRefs } from "pinia";

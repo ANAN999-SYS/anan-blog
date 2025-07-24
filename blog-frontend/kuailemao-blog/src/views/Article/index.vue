@@ -352,7 +352,7 @@ function ReadingModeFunc() {
                   <div>
                     支付宝
                     <el-image
-                        src="https://image.kuailemao.xyz/blog/pay/%E6%94%AF%E4%BB%98%E5%AE%9D%E6%94%AF%E4%BB%98%E4%BA%8C%E7%BB%B4%E7%A0%81_.png"/>
+                        :src="env.VITE_STATIC_URL_API+env.VITE_ALIPAY_URL"/>
                   </div>
                 </div>
               </template>
@@ -523,7 +523,7 @@ function ReadingModeFunc() {
               <div>
                 支付宝
                 <el-image
-                    src="https://image.kuailemao.xyz/blog/pay/%E6%94%AF%E4%BB%98%E5%AE%9D%E6%94%AF%E4%BB%98%E4%BA%8C%E7%BB%B4%E7%A0%81_.png"/>
+                    :src="env.VITE_STATIC_URL_API+env.VITE_ALIPAY_URL"/>
               </div>
             </div>
           </template>
@@ -631,6 +631,7 @@ function ReadingModeFunc() {
   border-radius: $border-radius;
   height: 20rem;
   width: 100%;
+  height: fit-content;
   // 调整大小以覆盖整个背景区域
   background-size: cover;
   background-position: center;

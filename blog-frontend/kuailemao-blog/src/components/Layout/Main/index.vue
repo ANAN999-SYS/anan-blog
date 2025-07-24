@@ -23,7 +23,7 @@ defineProps({
   <div class="header">
     <slot name="header"/>
   </div>
-
+  <div style="height: 50px"></div>
   <div v-if="onlyFatherContainer">
     <div>
       <slot name="banner"/>

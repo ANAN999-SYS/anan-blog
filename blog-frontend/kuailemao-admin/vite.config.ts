@@ -6,13 +6,14 @@ import { loadEnv } from 'vite'
 import type { ConfigEnv, UserConfig } from 'vite'
 import { createVitePlugins } from './plugins'
 import { OUTPUT_DIR } from './plugins/constants'
+import envGenerateConfig from 'vite-plugin-env-generate-config'
 
 const baseSrc = fileURLToPath(new URL('./src', import.meta.url))
 // https://vitejs.dev/config/
 export default ({ mode }: ConfigEnv): UserConfig => {
   const env = loadEnv(mode, process.cwd())
   return {
-    plugins: createVitePlugins(env),
+    plugins: [envGenerateConfig(),createVitePlugins(env)],
     resolve: {
       alias: [
         {

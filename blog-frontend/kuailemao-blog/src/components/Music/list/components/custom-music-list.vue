@@ -11,7 +11,6 @@ const { getCustomerMusicList } = storeToRefs(music());
 defineComponent({
   name: "CustomMusicList",
 });
-
 const playMusic = (item) => {
   // 设置当前播放音乐
   music().setMusicInfo(item.id);
@@ -30,6 +29,9 @@ const customerDeleteMusic = (item) => {
     message: h("div", { style: "color: #7ec050; font-weight: 600;" }, "删除成功"),
   });
 };
+const test = () => {
+  console.log(getCustomerMusicList.value)
+};
 watch(
   () => getCustomerMusicList.value.length,
   () => {
@@ -44,42 +46,43 @@ watch(
   <div class="music-list">
     <div class="flex justify-between items-start">
       <div class="!py-[10px] music-list__detail">
-        <el-row>
-          <el-col :span="24" class="header">
-            <div class="title title1">歌曲</div>
-            <div class="title title2">作者</div>
-            <div class="title title3">其他</div>
-          </el-col>
-        </el-row>
-        <el-row class="body">
-          <div style="width: 100%" v-if="getCustomerMusicList.length">
-            <el-col
-              class="flex justify-start items-center overflow-auto"
-              :span="24"
-              v-for="item in getCustomerMusicList"
-              :key="item.id"
-            >
-              <div class="name" @click="playMusic(item)">
-                <span class="text-overflow" :title="item.name">{{ item.name }}</span>
-              </div>
-              <div class="author">
-                <span class="text-overflow" :title="item.ar[0].name">{{
-                  item.hasOwnProperty("ar") ? item.ar[0].name : ""
-                }}</span>
-              </div>
-              <div class="other">
-                <span class="text-overflow" :title="item.alia[0]">{{
-                  item.hasOwnProperty("alia") ? item.alia[0] : ""
-                }}</span>
-              </div>
-              <div class="delete-music">
-                <svg-icon name="delete" width="1rem" @click="customerDeleteMusic(item)"></svg-icon>
-              </div>
-            </el-col>
-          </div>
-
-          <div v-else class="empty">空空如也</div>
-        </el-row>
+        <el-table :data="getCustomerMusicList" empty-text="空空如也" style="width: 100%;margin-top: 12px;" :max-height="240" >
+          <el-table-column fixed prop="name" label="歌曲" >
+            <template #default="scope">
+              {{scope.row.name}}
+            </template>
+          </el-table-column>
+          <el-table-column fixed  label="作者"  >
+            <template #default="scope">
+              {{scope.row.ar[0].name}}
+            </template>
+          </el-table-column>
+          <el-table-column fixed  label="其他"  >
+            <template #default="scope">
+              {{scope.row.alia[0]}}
+            </template>
+          </el-table-column>
+          <el-table-column fixed label="操作"  >
+            <template #default="scope">
+              <el-button
+                  size="small"
+                  type="success"
+                  icon="CaretRight"
+                  circle
+                  @click="playMusic(scope.row)"
+              >
+              </el-button>
+              <el-button
+                  size="small"
+                  type="danger"
+                  icon="SemiSelect"
+                  circle
+                  @click="customerDeleteMusic(scope.row)"
+              >
+              </el-button>
+            </template>
+          </el-table-column>
+        </el-table>
       </div>
     </div>
   </div>
@@ -115,6 +118,7 @@ watch(
 
     .body {
       max-height: 300px;
+      width: 100%;
       overflow: auto;
     }
   }

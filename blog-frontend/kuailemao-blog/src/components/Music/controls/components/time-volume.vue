@@ -21,7 +21,11 @@ const playModel = {
   LISTLOOP: "icon-liebiaoxunhuan",
   SINGLECYCLE: "icon-danquxunhuan",
 };
-
+const playModelTips = {
+  "icon-suijibofang":"随机",
+  "icon-liebiaoxunhuan":"循环",
+  "icon-danquxunhuan":"单曲"
+}
 defineEmits(["update:volume"]);
 
 defineProps({
@@ -52,6 +56,8 @@ const changeModel = () => {
   music().setPlayModel(MODELLIST[index]);
 };
 
+
+
 // 手动关闭popover
 const closePopover = () => {
   elPopoverRef.value.hide();
@@ -80,30 +86,41 @@ watch(
 <template>
   <div class="time-volume">
     <!-- 音乐模式 -->
-    <i :class="['change-color', 'iconfont', playModel[getPlayModel]]" @click="changeModel"></i>
+    <el-tooltip effect="light" :content="playModelTips[playModel[getPlayModel]]" >
+      <i :class="['change-color', 'iconfont', playModel[getPlayModel]]" @click="changeModel"></i>
+    </el-tooltip>
     <!-- 时间显示 -->
     <span class="time">{{ currentTime }} / {{ duration }}</span>
     <!-- 音量调节 -->
-    <el-popover placement="top" trigger="click" :width="42">
-      <template #reference>
-        <i class="iconfont icon-yinliang change-color"> </i>
-      </template>
+    <el-popover trigger="click" :popper-style="{minWidth: '10px', width: 'auto'}">
+        <template #reference>
+         <div>
+           <el-tooltip effect="light" content="音量">
+             <i class="iconfont icon-yinliang change-color"> </i>
+           </el-tooltip>
+         </div>
+        </template>
       <template #default>
-        <el-slider v-model="currentVolume" :show-tooltip="false" vertical height="60px" />
+        <el-slider v-model="currentVolume" :show-tooltip="false"  vertical height="60px" style="" />
       </template>
     </el-popover>
     <!-- 歌曲列表 -->
     <el-popover
       ref="elPopoverRef"
       placement="top"
-      :width="400"
+      :width="380"
+      class="elPopoverPop"
       :show-arrow="false"
       :teleported="false"
       trigger="click"
       @touchmove.stop.prevent
     >
       <template #reference>
-        <i class="iconfont icon-bofangliebiao change-color"></i>
+        <div>
+          <el-tooltip effect="light" content="歌单">
+            <i class="iconfont icon-bofangliebiao change-color"></i>
+          </el-tooltip>
+        </div>
       </template>
       <div class="pop">
         <i class="iconfont icon-off-search" @click="closePopover"></i>
@@ -123,6 +140,7 @@ watch(
 
   .time {
     font-size: 1rem;
+    text-align: center;
   }
 }
 .volume {
@@ -138,7 +156,6 @@ watch(
   cursor: pointer;
   color: var(--music-main-active);
 }
-
 .pop {
   position: relative;
   .icon-off-search {
@@ -161,6 +178,13 @@ watch(
 @media screen and (max-width: 768px) {
   .icon-yinliang {
     display: none;
+  }
+  .time-volume {
+    padding-left: 4px;
+  }
+  .time{
+    font-size: 14px !important;
+    margin: 0 -16px 0 -4px !important;
   }
 }
 

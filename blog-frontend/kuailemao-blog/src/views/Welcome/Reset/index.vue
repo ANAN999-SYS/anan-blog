@@ -99,7 +99,7 @@ function doReset() {
 
 <template>
   <div style="text-align: center">
-    <div style="margin-top: 30px">
+    <div style="margin-top: 58px">
       <el-steps align-center :active="active" finish-status="success">
         <el-step title="验证电子邮件"/>
         <el-step title="重写设定密码"/>

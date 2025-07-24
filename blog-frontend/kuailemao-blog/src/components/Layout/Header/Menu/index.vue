@@ -1,3 +1,4 @@
+
 <script setup lang="ts">
 
 import {
@@ -253,7 +254,7 @@ onUnmounted(() => {
             <el-avatar style="margin-right: 3rem"
                        :src="userStore.userInfo?.avatar"></el-avatar>
             <template #dropdown>
-              <el-dropdown-item @click="router.push('/setting')">
+              <el-dropdown-item @click="router.push('/setting')" style="cursor: url(/static/cur/Link.gif), auto !important;">
                 <template #default>
                   <el-icon>
                     <Setting/>
@@ -261,15 +262,15 @@ onUnmounted(() => {
                   个人设置
                 </template>
               </el-dropdown-item>
-              <!--                  <el-dropdown-item>-->
-              <!--                    <template #default>-->
-              <!--                      <el-icon>-->
-              <!--                        <Collection/>-->
-              <!--                      </el-icon>-->
-              <!--                      我的收藏-->
-              <!--                    </template>-->
-              <!--                  </el-dropdown-item>-->
-              <el-dropdown-item @click="logoutSub">
+              <el-dropdown-item @click="router.push('/collection')" style="cursor: url(/static/cur/Link.gif), auto !important;">
+                <template #default>
+                  <el-icon>
+                    <Collection/>
+                  </el-icon>
+                  我的收藏
+                </template>
+              </el-dropdown-item>
+              <el-dropdown-item @click="logoutSub" style="cursor: url(/static/cur/Link.gif), auto !important;">
                 <template #default>
                   <el-icon>
                     <Promotion/>
@@ -420,7 +421,9 @@ nav {
       }
     }
   }
-
+.dropdown-item{
+  cursor: url('#{$static-url}/cur/Link.gif'), auto !important;
+}
   #menu-right {
     flex: 1;
     width: 100%;

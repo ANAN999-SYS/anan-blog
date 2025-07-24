@@ -160,4 +160,8 @@ public interface ArticleService extends IService<Article> {
      * @return 文章
      */
     List<SearchArticleByContentVO> searchArticleByContent(String content);
+    /*
+    * 根据文章id查询文章
+     */
+    ArticleVO getArticleById(Long articleId);
 }

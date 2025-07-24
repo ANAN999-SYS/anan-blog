@@ -4,7 +4,7 @@
       <!-- 标题 -->
       <TextGlitch :text="useWebsite?.webInfo?.websiteName || ''" />
       <!-- 打字机 -->
-      <div class="brand-text">
+      <div v-if="obj.output" class="brand-text">
         <div class="title">
           {{obj.output}}
           <span class="easy-typed-cursor">|</span>
@@ -22,12 +22,12 @@
 </template>
 
 <script setup lang="ts">
-
 import useWebsiteStore from "@/store/modules/website.ts";
-import {getSoupTyping} from "@/apis/thirdParty";
+import getSoupTyping  from "@/apis/thirdParty";
 import TextGlitch from "@/components/TextGlitch/index.vue";
+import { reactive, onMounted, onUnmounted, ref } from "vue"; // 新增onUnmounted和ref
 
-const useWebsite = useWebsiteStore()
+const useWebsite = useWebsiteStore();
 
 const obj = reactive({
   output: "",
@@ -40,6 +40,19 @@ const obj = reactive({
   sentencePause: false,
 });
 
+// 用于保存打字机实例和定时器的引用（供销毁用）
+const typerRef = ref<any>(null); // 保存EasyTyper实例
+const timerRef = ref<number | null>(null); // 保存setTimeout定时器ID
+
+// 重写getSoupTyping的调用方式，传递保存实例和定时器的回调
+const startTyping = () => {
+  getSoupTyping(
+      obj,
+      (instance: any) => { typerRef.value = instance; }, // 保存打字机实例
+      (timerId: number) => { timerRef.value = timerId; } // 保存定时器ID
+  );
+};
+
 const scrollDown = () => {
   window.scrollTo({
     behavior: "smooth",
@@ -48,9 +61,19 @@ const scrollDown = () => {
 };
 
 onMounted(() => {
-  getSoupTyping(obj)
+  startTyping(); // 启动打字机
 });
 
+// 组件销毁时执行清理
+onUnmounted(() => {
+  // 1. 清除定时器，阻止下一次循环
+  if (timerRef.value) {
+    clearTimeout(timerRef.value);
+    timerRef.value = null;
+  }
+  // 2. 重置闭包中的状态锁（通过getSoupTyping的重置方法）
+  getSoupTyping.reset();
+});
 </script>
 
 <style lang="scss" scoped>
@@ -75,6 +98,7 @@ onMounted(() => {
   position: fixed;
   z-index: -1;
   top: 15em;
+  max-width: 80%;
 
   .brand-text{
     // 白色半透明背景

@@ -5,6 +5,7 @@ import Components from 'unplugin-vue-components/vite'
 import {ElementPlusResolver} from 'unplugin-vue-components/resolvers'
 import { visualizer } from 'rollup-plugin-visualizer'
 import vue from '@vitejs/plugin-vue'
+import envGenerateConfig from 'vite-plugin-env-generate-config'
 // 引入svg需要用到插件
 import {createSvgIconsPlugin} from 'vite-plugin-svg-icons'
 import path from 'path'
@@ -26,6 +27,7 @@ export default defineConfig(({ mode }: ConfigEnv) => {
                 deleteOriginFile: false
             }),
             vue(),
+            envGenerateConfig(),
             createSvgIconsPlugin({
                 // 指定需要缓存的图标文件夹
                 iconDirs: [path.resolve(process.cwd(), 'src/assets/icons')],
@@ -56,7 +58,9 @@ export default defineConfig(({ mode }: ConfigEnv) => {
             preprocessorOptions: {
                 scss: {
                     javascriptEnabled: true,
-                    additionalData: '@import "./src/styles/variable.scss";',
+                    additionalData: `
+                    $static-url: '${loadEnv(mode, process.cwd()).VITE_STATIC_URL_API || ''}';
+                    @import "./src/styles/variable.scss";`,
                 },
             },
             postcss: {
@@ -83,7 +87,7 @@ export default defineConfig(({ mode }: ConfigEnv) => {
             }
         },
         server: {
-            port: 99,
+            port: 80,
             host: '0.0.0.0',
             proxy: {
                 '/api': {
@@ -95,7 +99,12 @@ export default defineConfig(({ mode }: ConfigEnv) => {
                     target: `${loadEnv(mode, process.cwd()).VITE_MUSIC_SERVE}`,
                     changeOrigin: true,
                     rewrite: (path) => path.replace(/^\/wapi/, '')
-                }
+                },
+                '/static': {
+                    target: `${loadEnv(mode, process.cwd()).VITE_STATIC_URL}`,
+                    changeOrigin: true,
+                    rewrite: (path) => path.replace(/^\/static/, '')
+                },
             }
         }
     }

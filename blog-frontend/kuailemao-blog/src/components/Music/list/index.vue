@@ -170,8 +170,8 @@ onBeforeUnmount(() => {
 <template>
   <div class="music-list">
     <div class="!max-w-[1024px] !w-[100%] flex md:justify-between justify-center items-start">
-      <div class="music-list__left">
-        <div class="header">分类歌单</div>
+      <div class="music-list__left" style="margin: 8px 0 0 12px;">
+        <div class="header" style="margin-bottom: 4px">分类歌单</div>
         <el-row v-loading="musicListLoading" class="body">
           <el-col
             class="flex justify-center items-center overflow-auto"
@@ -186,7 +186,7 @@ onBeforeUnmount(() => {
           </el-col>
         </el-row>
       </div>
-      <div class="music-list__right">
+      <div class="music-list__right" style="margin: 8px 12px 0 12px;">
         <div class="!w-[100%] flex items-center">
           <span v-if="currentTop" class="top-name text-overflow" :title="currentTop.name">{{
             currentTop.name
@@ -231,6 +231,7 @@ onBeforeUnmount(() => {
               <span class="text-overflow" :title="item.alia[0]">{{ item.alia[0] }}</span>
             </div>
             <div class="add-music">
+              <el-tooltip effect="light" :content="item.active ? '已添加':'加入歌单'" placement="right">
               <i
                 :class="[
                   'iconfont',
@@ -240,9 +241,10 @@ onBeforeUnmount(() => {
                 ]"
                 @click="customerAddMusic(item)"
               ></i>
+              </el-tooltip>
             </div>
           </el-col>
-          <div class="observe" @click="loadMore">
+          <div class="observe">
             <template v-if="!params.loading">
               <Loading :size="24" v-if="scrollLoading" />
               <template v-else>

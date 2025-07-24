@@ -62,6 +62,7 @@ public class OauthController {
     public void giteeLogin(AuthCallback callback, HttpServletRequest request, HttpServletResponse response) throws IOException {
         AuthRequest authRequest = getGiteeAuthRequest();
         String parameter = oauthService.handleLogin(authRequest.login(callback), request, RegisterOrLoginTypeEnum.GITEE.getRegisterType());
+        log.info("Gitee login callback parameter: {}", parameter); // 添加日志
         response.sendRedirect(path+parameter);
     }
     // github登录

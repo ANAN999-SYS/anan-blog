@@ -50,7 +50,7 @@ function userLogin() {
       <div style="font-size: 25px;font-weight: bold">登录</div>
       <div style="font-size: 14px;color: grey;margin-top: 1rem">用户密码使用键式哈希算法加密，请放心注册</div>
     </div>
-    <div style="margin-top: 50px">
+    <div style="margin-top: 30px">
       <el-form :model="form" :rules="rule" ref="formRef">
         <el-form-item prop="username">
           <el-input v-model="form.username" maxlength="20" type="text" placeholder="用户名/邮箱">

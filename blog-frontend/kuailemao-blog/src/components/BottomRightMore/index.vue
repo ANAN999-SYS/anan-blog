@@ -18,11 +18,12 @@
 
 <style scoped lang="scss">
 .back-to-top {
+  z-index: 1 !important;
   height: 30px !important;
   width: 30px !important;
 
   @media screen and (max-width: 768px) {
-    height: 30px !important;
+    height: 60px !important;
     width: 30px !important;
   }
 }

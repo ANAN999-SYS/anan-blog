@@ -1,11 +1,15 @@
 package xyz.kuailemao.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import xyz.kuailemao.domain.dto.FavoriteIsCheckDTO;
 import xyz.kuailemao.domain.dto.SearchFavoriteDTO;
 import xyz.kuailemao.domain.entity.Favorite;
 import xyz.kuailemao.domain.response.ResponseResult;
+import xyz.kuailemao.domain.vo.ArticleVO;
 import xyz.kuailemao.domain.vo.FavoriteListVO;
+import xyz.kuailemao.domain.vo.LeaveWordVO;
+import xyz.kuailemao.domain.vo.PageVO;
 
 import java.util.List;
 
@@ -50,7 +54,11 @@ public interface FavoriteService extends IService<Favorite> {
      * @return 结果
      */
     List<FavoriteListVO> getBackFavoriteList(SearchFavoriteDTO searchDTO);
-
+    /*
+    * 个人收藏列表
+     */
+    PageVO<List<ArticleVO>> getFavoriteArticleList(SearchFavoriteDTO searchDTO, Integer pageNum, Integer pageSize);
+    PageVO<List<LeaveWordVO>> getFavoriteLeaveWordVOList(SearchFavoriteDTO searchDTO, Integer pageNum, Integer pageSize);
     /**
      * 是否通过收藏
      * @param isCheckDTO 是否通过

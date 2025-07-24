@@ -275,9 +275,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
                 .loginTime(date).build();
         if (this.save(user)) {
             // 删除验证码
-            ipService.refreshIpDetailAsyncByUidAndRegister(user.getId());
+                ipService.refreshIpDetailAsyncByUidAndRegister(user.getId());
             redisCache.deleteObject(RedisConst.VERIFY_CODE + RedisConst.REGISTER + RedisConst.SEPARATOR + userRegisterDTO.getEmail());
-            return ResponseResult.success();
+            return ResponseResult.success(null, "注册成功！");
         } else {
             return ResponseResult.failure();
         }

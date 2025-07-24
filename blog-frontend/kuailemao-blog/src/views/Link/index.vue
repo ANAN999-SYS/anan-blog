@@ -159,14 +159,28 @@ function applyLinkFunc() {
           </div>
           <div class="link">
             <template v-for="link in links" :key="link.id">
-              <div v-slide-in class="item">
-                <div class="bg" :style="{background: `url(${link.background})`}"></div>
+              <div v-slide-in class="item group">
+                <!-- 背景图容器，添加渐变叠加增强文字可读性 -->
+                <div class="bg" :style="{backgroundImage: `url(${link.background})`}">
+                  <div class="bg-overlay"></div>
+                </div>
+
                 <div class="content_link">
-                  <div>
-                    <el-avatar :src="link.avatar"/>
-                    <div class="name"><a :href="link.url">{{ link.name }}</a></div>
+                  <div class="info-card">
+                    <!-- 头像添加过渡效果 -->
+                    <div class="avatar-container">
+                      <el-avatar class="avatar" :src="link.avatar" />
+                    </div>
+
+                    <div class="text-content">
+                      <div class="name">
+                        <a :href="link.url" class="name-link" target="_blank" rel="noopener noreferrer">
+                          {{ link.name }}
+                        </a>
+                      </div>
+                      <div class="description line-clamp-2">{{ link.description }}</div>
+                    </div>
                   </div>
-                  <div class="description">{{ link.description }}</div>
                 </div>
               </div>
             </template>
@@ -180,18 +194,19 @@ function applyLinkFunc() {
 <style scoped lang="scss">
 @import "@/styles/mixin.scss";
 
-:deep(.el-dialog__body){
+// 全局Dialog样式优化
+:deep(.el-dialog__body) {
   padding-top: 0;
 }
 
-:deep(.el-dialog){
-  // 过渡时间
-  transition: all 0.3s ease-in-out;
-  @media (max-width: 1000px)  {
+:deep(.el-dialog) {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  @media (max-width: 1000px) {
     width: 60%;
   }
 
-  @media (max-width: 550px)  {
+  @media (max-width: 550px) {
     width: 90%;
   }
 }
@@ -202,129 +217,191 @@ function applyLinkFunc() {
   .link {
     display: flex;
     flex-wrap: wrap;
+    gap: 1rem; // 使用gap替代margin实现更均匀的间距
+    padding: 0.5rem; // 容器内边距，防止边缘卡片贴边
+  }
 
-    .item {
-      margin: 0.5rem;
-      width: calc(100% / 3 - 1rem);
-      height: 13rem;
-      border: #0072ff 1px solid;
-      border-radius: $border-radius;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      @include flex;
-      flex-direction: column;
-      overflow: hidden;
-      transition: all 0.3s ease-in-out;
+  .item {
+    flex: 1;
+    min-width: 280px; // 确保小屏幕上也有合理的最小宽度
+    max-width: calc(100% / 3 - 1rem);
+    height: 13rem;
+    border: 1px solid #0072ff;
+    border-radius: $border-radius;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    @include flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
 
-      @media screen and (max-width: 830px) {
-        width: calc(100% / 2 - 1rem);
-      }
+    // 响应式断点优化
+    @media screen and (max-width: 1024px) {
+      max-width: calc(100% / 2 - 1rem);
+    }
 
-      @media screen and (max-width: 580px) {
-        width: calc(100% - 1rem);
+    @media screen and (max-width: 640px) {
+      max-width: 100%;
+      height: 12rem;
+    }
 
-      }
+    // 悬停效果增强
+    &:hover {
+      transform: translateY(-5px) scale(1.01);
+      box-shadow: 0 12px 30px rgba(0, 114, 255, 0.15);
+      border-color: rgba(0, 114, 255, 0.8);
 
-      &:hover {
-        .content_link {
-          height: 50%;
-          background: #0072ff;
+      .content_link {
+        height: 50%;
+        background: #0072ff;
 
-          .name {
-            color: #fdeeee;
-          }
-
-          .description {
-            color: #fdeeee;
-          }
+        .name {
+          color: #fdeeee;
         }
 
-        .bg {
-          filter: blur(2px);
+        .description {
+          color: rgba(253, 238, 238, 0.9);
         }
       }
 
       .bg {
-        background-size: cover !important;
-        background-position: center !important;
-        width: 100%;
-        height: 65%;
+        filter: blur(3px) brightness(0.85);
+        transform: scale(1.05);
       }
 
-      .content_link {
-        transition: all 0.3s ease-in-out;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        //background: white;
-        height: 35%;
-        width: 100%;
-        padding: 0.5rem 0;
+      .avatar {
+        transform: scale(1.08);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      }
+    }
 
-        div {
-          display: flex;
-          align-items: center;
-          justify-content: center;
+    .bg {
+      background-size: cover !important;
+      background-position: center !important;
+      width: 100%;
+      height: 65%;
+      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
 
-          .el-avatar {
-            width: 2.5rem;
-            height: 2.5rem;
-            margin-left: -3rem;
-          }
+      // 添加渐变叠加层，提升文字可读性
+      .bg-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to bottom,
+            rgba(0,0,0,0) 0%,
+            rgba(0,0,0,0.2) 100%);
+      }
+    }
 
-          .name {
-            font-size: 1rem;
-            font-weight: bold;
-            margin-left: 0.5rem;
+    .content_link {
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 35%;
+      width: 100%;
+      padding: 0 1rem;
+      position: relative;
+      z-index: 1; // 确保内容在背景之上
+    }
 
-            a {
-              // 去掉a标签样式
-              color: inherit;
-              text-decoration: none;
-              cursor: pointer;
-            }
-          }
-        }
+    .info-card {
+      display: flex;
+      align-items: center;
+      width: fit-content;
+      max-width: 300px; // 限制最大宽度，防止在宽屏上过度拉伸
+      gap: 0.8rem; // 使用gap替代margin，更现代的布局方式
+    }
 
-        .description {
-          line-height: 1rem;
-          width: 15rem;
-          font-size: 0.85rem;
-          margin-left: 0.5rem;
-          margin-top: 0.5rem;
-          color: #7C7C7C;
+    .avatar-container {
+      flex-shrink: 0; // 防止头像被压缩
+    }
+
+    .avatar {
+      width: 3.5rem;
+      height: 3.5rem;
+      border: 2px solid white;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .text-content {
+      flex: 1;
+      min-width: 0; // 解决flex子元素内容溢出问题
+    }
+
+    .name {
+      font-size: 1rem;
+      font-weight: 600;
+      transition: color 0.3s ease;
+
+      .name-link {
+        color: inherit;
+        text-decoration: none;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        &:hover {
+          text-decoration: underline;
+          text-underline-offset: 2px;
         }
       }
+    }
+
+    .description {
+      line-height: 1.4;
+      font-size: 0.85rem;
+      margin-top: 0.25rem;
+      color: #7C7C7C;
+      transition: color 0.3s ease;
+      max-width: 100%;
     }
   }
 
   .title_content {
-    font-weight: bold;
+    font-weight: 600;
     font-size: 0.8rem;
     color: #999;
     display: flex;
     flex-direction: column;
     background: var(--mao-bg-message);
-    padding: 0.5rem;
+    padding: 0.75rem;
     border-radius: $border-radius;
     margin-bottom: 1rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 
     span {
       margin-bottom: 1rem;
-      line-height: 1rem;
+      line-height: 1.5;
     }
   }
 
   .header {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
 
     .el-button {
       height: 2.5rem;
+      padding: 0 1.25rem;
+      transition: all 0.2s ease;
     }
 
     .title {
       font-size: 2rem;
+      font-weight: 700;
+      color: #333;
     }
   }
 }
+
+// 工具类：文本超出两行显示省略号
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
 </style>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-
+const env = import.meta.env
 </script>
 
 <template>
@@ -8,7 +8,7 @@
     <!-- 左边区域 -->
     <div class="left-card">
       <el-image style="width: 100%;height: 100%" fit="cover"
-                src="https://image.kuailemao.xyz/blog/background/压缩水狗.png"/>
+                :src="env.VITE_STATIC_URL_API+'/banners/bg.png'"/>
     </div>
     <div class="welcome-title">
       <div>欢迎来到我的个人博客</div>

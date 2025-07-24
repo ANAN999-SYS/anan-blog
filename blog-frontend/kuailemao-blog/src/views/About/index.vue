@@ -26,30 +26,30 @@ const websiteStore = useWebsiteStore()
       <div class="flex flex-col justify-center items-center xl:w-[40%] lg:w-[60%] h-full">
         <div class="w-full h-[60vh] flex flex-col justify-center items-center">
           <div class="w-full text-[3rem] text-center text-gray-600 dark:text-gray-300 max-lg:text-[2rem] max-lg:pb-6">
-            一名中二Web全栈小白
+            一名Web全栈小白
           </div>
           <div class="mt-4 text-center text-gray-500 dark:text-gray-300 max-lg:px-3">
-            千年以前，看见元婴强者自己的小世界，非常羡慕，于是心中立誓，我也要变强，后抛弃世间情爱，终踏上修仙一途，虽一介散修，但亦往，经历千磨万难，
-            炼气百年，四百年筑基，一千年结丹，两千年突破元婴，又一千年后遭遇瓶颈，决心闭死关，四千年后的今日，终于突破<span class="text-red-500 font-bold"> 化神</span>，感叹回首沧桑，
-            道不尽仙凡殊途，尽人间。
+            大家好呀！我是一名刚踏入编程世界的小白，目前正在努力学习 Vue 和 Java 这两门技术～
           </div>
         </div>
         <div class="w-full h-[40vh] flex flex-col justify-center items-center">
-          <div class="text-gray-600 dark:text-gray-300 ">------------------------我的个人导航------------------------</div>
-          <div class="flex justify-center items-center h-full">
-            <a href="https://github.com/kuailemao" target="_blank">
-              <div class="bg-white dark:bg-slate-800 w-[120px] h-[120px] flex justify-center items-center rounded-2xl drop-shadow-lg">
-                <SvgIcon name="github_icon" width="100px" height="100px"/>
+          <div class="text-gray-600 dark:text-gray-300 w-64 whitespace-nowrap overflow-hidden" style="width: 300px;text-align: center">
+            --------------我的个人导航--------------
+          </div>
+          <div class="flex justify-center items-center h-full p-4 md:p-8 lg:p-12">
+            <a href="https://github.com/ANAN999-SYS" target="_blank">
+              <div class="bg-white dark:bg-slate-800 w-[100px] h-[100px] flex justify-center items-center rounded-2xl drop-shadow-lg">
+                <SvgIcon name="github_icon" width="80px" height="80px"/>
               </div>
             </a>
-            <a href="https://gitee.com/kuailemao" target="_blank"  class="mx-10 max-lg:mx-4">
-              <div class="bg-white dark:bg-slate-800 w-[120px] h-[120px] flex justify-center items-center rounded-2xl drop-shadow-lg">
-                <SvgIcon name="gitee_icon" width="100px" height="100px"/>
+            <a href="https://gitee.com/ANAN999-SYS" target="_blank"  class="mx-10 max-lg:mx-4">
+              <div class="bg-white dark:bg-slate-800 w-[100px] h-[100px] flex justify-center items-center rounded-2xl drop-shadow-lg">
+                <SvgIcon name="gitee_icon" width="80px" height="80px"/>
               </div>
             </a>
-            <a href="https://space.bilibili.com/299105957" target="_blank">
-              <div class="bg-white dark:bg-slate-800 w-[120px] h-[120px] flex justify-center items-center rounded-2xl drop-shadow-lg">
-                <SvgIcon name="bilibili_icon" width="100px" height="100px"/>
+            <a href="https://space.bilibili.com/475256259" target="_blank">
+              <div class="bg-white dark:bg-slate-800 w-[100px] h-[100px] flex justify-center items-center rounded-2xl drop-shadow-lg">
+                <SvgIcon name="bilibili_icon" width="80px" height="80px"/>
               </div>
             </a>
           </div>
@@ -73,6 +73,7 @@ h1 {
   font-family: 'Righteous', serif;
   font-size: 10em;
   text-shadow: .03em .03em 0 hsla(230,40%,50%,1);
+  white-space: nowrap;
 }
 h1:after {
   content: attr(data-shadow);

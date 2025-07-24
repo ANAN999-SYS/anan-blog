@@ -2,7 +2,7 @@
 import vueDanmaku from 'vue3-danmaku'
 import {addTreeHole, getTreeHoleList} from "@/apis/treeHole";
 import {ElMessage} from "element-plus";
-
+const env=import.meta.env
 const treeHoleList = ref([])
 // 是否显示提交按钮
 const isShowSubmit = ref(false)
@@ -55,7 +55,7 @@ function getTreeHole() {
                  is-suspend
                  v-model:danmus="treeHoleList"
                  use-slot loop
-                 style="height:100vh; width:100vw;">
+                 style="height:calc(100vh - 56px); width:100vw;">
       <template v-slot:dm="{ danmu }">
         <div class="barrage_container">
           <div>
@@ -65,16 +65,17 @@ function getTreeHole() {
         </div>
       </template>
     </vue-danmaku>
-  </div>
+    </div>
 </template>
 
 <style scoped lang="scss">
 .container {
-  background-image: url('https://image.kuailemao.xyz/blog/TreeHole/TreeHole-back_compressed.webp');
+  background-image: url('#{$static-url}/banners/bg.png');
   background-size: cover;
   background-position: center;
   min-width: 100vw;
   height: 100vh;
+  padding-top: 56px;
 
   // 内容
   .content_container {
@@ -109,12 +110,13 @@ function getTreeHole() {
         outline: none;
         padding: 0 1rem;
         font-size: 1rem;
-        background-color: rgba(255, 255, 255, 0.2)
+        color: grey;
+        background-color: rgba(255, 255, 255, 0.5)
       }
 
       // 改变placeholder样式
       & input::placeholder {
-        color: white;
+        color: grey;
         font-style: italic;
       }
 
@@ -124,7 +126,7 @@ function getTreeHole() {
         border-radius: 1rem;
         outline: none;
         margin-left: 0.5rem;
-        background-color: rgba(255, 255, 255, 0.2);
+        background-color: rgba(255, 255, 255, 0.5);
         border: #409EFF solid 1px;
         color: white;
         font-size: 1rem;

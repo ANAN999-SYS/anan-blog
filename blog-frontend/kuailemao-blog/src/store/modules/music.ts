@@ -11,7 +11,7 @@ import {
     getMusicDescription,
 } from "@/components/Music/musicTool";
 
-import blogAvatar from "@/assets/images/blogAvatar.svg";
+import blogAvatar from "@/assets/images/blogAvatar.png";
 
 const audio = new Audio();
 

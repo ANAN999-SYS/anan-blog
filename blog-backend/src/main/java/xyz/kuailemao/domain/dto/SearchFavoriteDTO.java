@@ -11,6 +11,7 @@ import lombok.Data;
 public class SearchFavoriteDTO {
     //收藏的用户姓名
     private String userName;
+    private Long userId;
     //收藏类型(1,文章 2,留言板)
     private Integer type;
     // 是否有效 (0否 1是)

@@ -1,8 +1,8 @@
 <template>
   <div class="loading loading-active" v-show="loadingStore.isLoading">
     <div class="load-box">
-      <img class="loading-img" src="https://image.kuailemao.xyz/blog/loading/loading-gif.gif" alt="Loading">
-      <span>比卡丘正在带着数据走向你~~</span>
+      <img class="loading-img" :src="env.VITE_STATIC_URL+'/banners/94FC243D488F0A73EA04B7B1D25EA974.gif'" alt="Loading">
+      <span>岸岸正在带着数据走向你~~</span>
     </div>
   </div>
 </template>
@@ -10,7 +10,7 @@
 <script setup lang="ts">
 import useLoadingStore from "@/store/modules/loading.ts";
 const loadingStore = useLoadingStore()
-
+const env=import.meta.env
 </script>
 
 <style scoped lang="scss">
