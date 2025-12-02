@@ -1,8 +1,8 @@
 ## 博客介绍
 
 <p align="center">
-  <a href="https://www.kuailemao.xyz">
-    <img src="https://foruda.gitee.com/avatar/1667975309022664009/11937114_kuailemao_1667975308.png" alt="Ruyu的个人博客" style="border-radius: 50%;">
+  <a href="https://blog.zfgh.top/">
+    <img width="200" height="200" src="https://github.com/user-attachments/assets/f5da38ca-19bb-4503-a54b-2855c31f8788" alt="Ruyu的个人博客" style="border-radius: 50%;">
   </a>
 </p>
 
@@ -17,7 +17,7 @@
 ![前台首页](img/new/%E5%89%8D%E5%8F%B0%E9%A6%96%E9%A1%B5.png)
 
 前台中心
-![前台中心](img/new/%E5%89%8D%E5%8F%B0%E4%B8%AD%E5%BF%83.png)
+![前台中心](*img/new/%E5%89%8D%E5%8F%B0%E4%B8%AD%E5%BF%83.png)
 
 前台文章
 ![前台文章](img/new/%E5%89%8D%E5%8F%B0%E6%96%87%E7%AB%A0.png)
