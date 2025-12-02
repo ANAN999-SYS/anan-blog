@@ -10,6 +10,9 @@
   基于 SpringBoot3 + Vue3 开发前后端分离个人博客系统
 </p>
 
+## 前言
+  本项目只是对大佬开源博客的bug修复与改进，项目地址(https://github.com/kuailemao/Ruyu-Blog)
+  
 ## 项目部分截图
 
 ### 前台
