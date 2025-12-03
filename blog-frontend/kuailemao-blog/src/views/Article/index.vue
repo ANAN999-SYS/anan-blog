@@ -350,7 +350,6 @@ function ReadingModeFunc() {
               <template #content>
                 <div class="qrCode">
                   <div>
-                    支付宝
                     <el-image
                         :src="env.VITE_STATIC_URL_API+env.VITE_ALIPAY_URL"/>
                   </div>
@@ -629,13 +628,13 @@ function ReadingModeFunc() {
 
 .head_title {
   border-radius: $border-radius;
-  height: 20rem;
   width: 100%;
   height: fit-content;
-  // 调整大小以覆盖整个背景区域
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  // 保持之前的遮罩优化（如果已经加了的话）
+  filter: brightness(1);
 
   .head_title_text {
     display: flex;
@@ -643,28 +642,71 @@ function ReadingModeFunc() {
     align-items: self-start;
     color: white;
     font-size: 15px;
-    padding: 5%;
-
+    // 保留深色半透明背景（关键！确保渐变文字不被亮色封面冲淡）
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: $border-radius;
+    padding: 2rem;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
     .tag {
-      // 背景透明度0
-      background-color: rgba(255, 255, 255, 0);
+      font-size: 16px;
+      background: var(--mao-bg-tag);
+      backdrop-filter: blur(6.5px);
+      -webkit-backdrop-filter: blur(6.5px);
+      border: 0.8px solid rgba(255, 255, 255, 0.18);
+      box-shadow: rgba(142, 142, 142, 0.19) 0px 6px 15px 0px;
+      -webkit-box-shadow: rgba(142, 142, 142, 0.19) 0px 6px 15px 0px;
+      color: rgba(255, 255, 255);
     }
 
     div div {
-      background-color: rgba(255, 255, 255, 0.3);
+      background: var(--mao-bg-tag);
+      backdrop-filter: blur(6.5px);
+      -webkit-backdrop-filter: blur(6.5px);
+      border: 0.8px solid rgba(255, 255, 255, 0.18);
+      box-shadow: rgba(142, 142, 142, 0.19) 0px 6px 15px 0px;
+      -webkit-box-shadow: rgba(142, 142, 142, 0.19) 0px 6px 15px 0px;
       border-radius: 5px;
       margin: 5px;
-      padding: 5px;
+      padding: 5px 10px;
+      font-weight: 500;
     }
 
     div {
       display: flex;
+      color: #ffffff;
+      text-shadow: inherit;
     }
 
+    // 渐变标题核心样式
     .title {
       font-size: 40px;
       margin: 10px 0;
+      font-weight: 700; // 加粗增强质感
+      // 渐变背景（可自定义颜色和方向）
+      background: var(--mao-bg-article-title);
+      // 关键：让背景只显示在文字区域
+      -webkit-background-clip: text;
+      background-clip: text;
+      // 文字透明，显示背景渐变
+      color: transparent;
+      // 保留文字阴影，增强与封面的对比度
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      // 可选：添加文字描边，防止渐变与背景融合
+      -webkit-text-stroke: 0.5px rgba(0, 0, 0, 0.2);
     }
+
+    .statistics, .time {
+      font-weight: 500;
+      line-height: 1.8;
+    }
+  }
+}
+
+// 移动端响应式调整
+@media screen and (max-width: 768px) {
+  .head_title_text .title {
+    font-size: 28px;
+    -webkit-text-stroke: 0.3px rgba(0, 0, 0, 0.2); // 移动端描边变细
   }
 }
 

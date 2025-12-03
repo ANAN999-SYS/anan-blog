@@ -129,7 +129,7 @@ function getArticle(id: string) {
 
     .active {
       color: grey !important;
-      background: var(--el-color-danger-light-7) !important;
+      background: var(--el-color-primary-light-7) !important;
     }
 
     .scrollbar-item {
@@ -142,14 +142,14 @@ function getArticle(id: string) {
       padding: 0.5rem 1rem;
       text-align: center;
       border-radius: 0.6em;
-      border: 1px solid var(--el-color-danger-light-7);
-      background: var(--el-color-danger-light-9);
-      color: var(--el-color-danger);
+      border: 1px solid var(--el-color-primary-light-7);
+      background: var(--el-color-primary-light-9);
+      color: var(--el-color-primary);
 
       &:hover {
         cursor: pointer;
         color: grey;
-        background: var(--el-color-danger-light-7);
+        background: var(--el-color-primary-light-7);
       }
     }
   }
@@ -219,7 +219,7 @@ function getArticle(id: string) {
       & div:last-child {
         margin-top: 1.5rem;
         font-size: 1.3rem;
-        color: grey;
+        color: white;
       }
     }
   }

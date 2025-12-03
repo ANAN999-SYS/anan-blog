@@ -128,7 +128,7 @@ function changeToggle({detail}) {
               placement="right"
           >
             <template #content>
-              <div class="profile">
+              <div class="profile" >
                 <div style="font-size: 15px;font-weight: bold;color: black">{{
                     userStore.userInfo?.username
                   }}
@@ -142,7 +142,7 @@ function changeToggle({detail}) {
               </div>
             </template>
             <el-dropdown>
-              <el-avatar style="margin-right: 3rem"
+              <el-avatar style="margin-right: 3rem;margin-left: 4px"
                          :src="userStore.userInfo?.avatar"></el-avatar>
               <template #dropdown>
                 <el-dropdown-item  @click="router.push('/setting')" style="cursor: url(/static/cur/Link.gif), auto !important;">

@@ -1,401 +1,220 @@
-/* 基础光标样式 */
+// 全局光标变量：统一管理，便于修改
+$cursor-normal: url(#{$static-url}/cur/Normal.gif), default;
+$cursor-pin: url(#{$static-url}/cur/Pin.gif), default;
+$cursor-busy: url(#{$static-url}/cur/Busy.gif), auto;
+$cursor-person: url(#{$static-url}/cur/Person.gif), auto;
+$cursor-link: url(#{$static-url}/cur/Link.gif), auto;
+$cursor-text: url(#{$static-url}/cur/Text.gif), auto;
+$cursor-precision: url(#{$static-url}/cur/Precision.gif), auto;
+$cursor-unavailable: url(#{$static-url}/cur/Unavailable.gif), auto;
+
+// 基础样式：统一设置 pointer-events 和过渡（提升体验）
+* {
+  cursor: inherit; // 子元素继承父元素光标，减少重复定义
+  transition: cursor 0.1s ease; // 光标切换更丝滑
+}
+
+// 1. 全局基础光标
 body {
-  cursor: url(#{$static-url}/cur/Normal.gif), default;
+  cursor: $cursor-normal;
+
+  &:active {
+    cursor: $cursor-pin;
+  }
 }
 
-/* 激活状态光标样式 - 基础 */
-body:active {
-  cursor: url(#{$static-url}/cur/Pin.gif), default;
+// 2. 状态类光标（加载/禁用等）
+// 加载状态
+.loading.loading-active {
+  cursor: $cursor-busy !important;
 }
 
-/* 加载状态及激活状态 */
-div[class="loading loading-active"] {
-  cursor: url(#{$static-url}/cur/Busy.gif), auto !important;
+// 图片预览（禁用状态）
+.medium-zoom-overlay,
+[class*="medium-zoom-image"] {
+  cursor: $cursor-unavailable !important;
+
+  &:active {
+    cursor: $cursor-pin !important;
+  }
 }
 
-/* 音乐相关元素及激活状态 */
-div[class="music-disc music-left"] {
-  cursor: url(#{$static-url}/cur/Person.gif), auto !important;
-}
-div[class="music-disc music-left"]:active {
-  cursor: url(#{$static-url}/cur/Pin.gif), default !important;
-}
-
-/* 搜索元素及激活状态 */
-div[class="search"] {
-  cursor: url(#{$static-url}/cur/Link.gif), auto !important;
-}
-div[class="search"]:active {
-  cursor: url(#{$static-url}/cur/Pin.gif), default !important;
-}
-
-/* 音乐图片及激活状态 */
-img[class*="music-img"] {
-  cursor: url(#{$static-url}/cur/Link.gif), auto !important;
-}
-img[class*="music-img"]:active {
-  cursor: url(#{$static-url}/cur/Pin.gif), default !important;
-}
-
-/* 箭头图标及激活状态 */
-svg.arrow-down {
-  cursor: url(#{$static-url}/cur/Link.gif), auto !important;
-}
-svg.arrow-down:active {
-  cursor: url(#{$static-url}/cur/Pin.gif), default !important;
-}
-
-/* 返回顶部按钮及激活状态 */
-svg.back-to-top {
-  cursor: url(#{$static-url}/cur/Link.gif), auto !important;
-}
-svg.back-to-top:active {
-  cursor: url(#{$static-url}/cur/Pin.gif), default !important;
-}
-
-/* 通用图标及激活状态 */
-svg.icon {
-  cursor: url(#{$static-url}/cur/Link.gif), auto !important;
-}
-svg.icon:active {
-  cursor: url(#{$static-url}/cur/Pin.gif), default !important;
-}
-
-/* 垂直菜单及激活状态 */
-ul.el-menu.el-menu--vertical.menu * {
-  cursor: url(#{$static-url}/cur/Link.gif), auto !important;
-}
-ul.el-menu.el-menu--vertical.menu *:active {
-  cursor: url(#{$static-url}/cur/Pin.gif), default !important;
-}
-
-/* 菜单项及激活状态 */
-div[class="menus_item"] {
-  cursor: url(#{$static-url}/cur/Link.gif), auto !important;
-}
-div[class="menus_item"]:active {
-  cursor: url(#{$static-url}/cur/Pin.gif), default !important;
-}
-
-/* 音乐信息及激活状态 */
-div[class="music-info"] {
-  cursor: url(#{$static-url}/cur/Link.gif), auto !important;
-}
-div[class="music-info"]:active {
-  cursor: url(#{$static-url}/cur/Pin.gif), default !important;
-}
-
-/* 图标字体及激活状态 */
-i[class*="iconfont"] {
-  cursor: url(#{$static-url}/cur/Link.gif), auto !important;
-}
-i[class*="iconfont"]:active {
-  cursor: url(#{$static-url}/cur/Pin.gif), default !important;
-}
-
-/* 切换按钮及激活状态 */
-#toggle-button {
-  cursor: url(#{$static-url}/cur/Link.gif), auto !important;
-}
-#toggle-button:active {
-  cursor: url(#{$static-url}/cur/Pin.gif), default !important;
-}
-
-/* 按钮及激活状态 */
-button:hover {
-  cursor: url(#{$static-url}/cur/Person.gif), auto !important;
-}
-button:active {
-  cursor: url(#{$static-url}/cur/Pin.gif), default !important;
-}
-
-/* 输入框及激活状态 */
-input:hover, textarea:hover {
-  cursor: url(#{$static-url}/cur/Text.gif), auto !important;
-}
-input:active, textarea:active {
-  cursor: url(#{$static-url}/cur/Pin.gif), default !important;
-}
-
-/* 链接及激活状态 */
-a:link, a:visited, a:hover, a:active {
-  cursor: url(#{$static-url}/cur/Link.gif), auto !important;
-}
-a:active {
-  cursor: url(#{$static-url}/cur/Pin.gif), default !important;
-}
-
-/* 复选框及激活状态 */
-label.el-checkbox {
-  cursor: url(#{$static-url}/cur/Link.gif), auto !important;
-}
-label.el-checkbox:active {
-  cursor: url(#{$static-url}/cur/Pin.gif), default !important;
-}
-
-/* 输入框后缀及激活状态 */
-span.el-input__suffix * {
-  cursor: url(#{$static-url}/cur/Link.gif), auto !important;
-}
-span.el-input__suffix *:active {
-  cursor: url(#{$static-url}/cur/Pin.gif), default !important;
-}
-
-/* 事件历史及激活状态 */
-div.event_history * {
-  cursor: url(#{$static-url}/cur/Link.gif), auto !important;
-}
-div.event_history *:active {
-  cursor: url(#{$static-url}/cur/Pin.gif), default !important;
-}
-
-/* 搜索历史及激活状态 */
-div.search_history * {
-  cursor: url(#{$static-url}/cur/Link.gif), auto !important;
-}
-div.search_history *:active {
-  cursor: url(#{$static-url}/cur/Pin.gif), default !important;
-}
-
-/* 分类文章容器及激活状态 */
-div.category_article_container * {
-  cursor: url(#{$static-url}/cur/Person.gif), pointer !important;
-}
-div.category_article_container *:active {
-  cursor: url(#{$static-url}/cur/Pin.gif), default !important;
-}
-
-/* 编辑器图片及激活状态 */
-div.md-editor.md-editor-previewOnly * > img {
-  cursor: url(#{$static-url}/cur/Precision.gif) ,auto !important;
-}
-div.md-editor.md-editor-previewOnly * > img:active {
-  cursor: url(#{$static-url}/cur/Pin.gif), default !important;
-}
-
-/* 图片预览覆盖层及激活状态 */
-div.medium-zoom-overlay {
-  cursor: url(#{$static-url}/cur/Unavailable.gif) ,auto !important;
-}
-div.medium-zoom-overlay:active {
-  cursor: url(#{$static-url}/cur/Pin.gif), default !important;
-}
-
-/* 预览图片及激活状态 */
-img[class*=medium-zoom-image] {
-  cursor: url(#{$static-url}/cur/Unavailable.gif) ,auto !important;
-}
-img[class*=medium-zoom-image]:active {
-  cursor: url(#{$static-url}/cur/Pin.gif), default !important;
-}
-
-/* 提示触发器及激活状态 */
-div[class*="el-tooltip__trigger"] {
-  cursor: url(#{$static-url}/cur/Person.gif), auto !important;
-}
-div[class*="el-tooltip__trigger"]:active {
-  cursor: url(#{$static-url}/cur/Pin.gif), default !important;
-}
-
-/* 标签及激活状态 */
-div[class="tag"] * {
-  cursor: url(#{$static-url}/cur/Person.gif), auto !important;
-}
-div[class="tag"] *:active {
-  cursor: url(#{$static-url}/cur/Pin.gif), default !important;
-}
-
-/* 点赞按钮及激活状态 */
-div[class="like"] * {
-  cursor: url(#{$static-url}/cur/Person.gif), auto !important;
-}
-div[class="like"] *:active {
-  cursor: url(#{$static-url}/cur/Pin.gif), default !important;
-}
-
-/* 表情弹出层及激活状态 */
-div.el-popper.is-light.el-tooltip.el-popover.emoji-popover-container * {
-  cursor: url(#{$static-url}/cur/Link.gif), auto !important;
-}
-div.el-popper.is-light.el-tooltip.el-popover.emoji-popover-container *:active {
-  cursor: url(#{$static-url}/cur/Pin.gif), default !important;
-}
-
-/* 菜单项子元素及激活状态 */
-div.menus_item * {
-  cursor: url(#{$static-url}/cur/Link.gif), auto !important;
-}
-div.menus_item *:active {
-  cursor: url(#{$static-url}/cur/Pin.gif), default !important;
-}
-
-/* 随机图片及激活状态 */
-div.random_image {
-  cursor: url(#{$static-url}/cur/Normal.gif), auto !important;
-}
-div.random_image:active {
-  cursor: url(#{$static-url}/cur/Pin.gif), default !important;
-}
-
-/* 滚动条激活项及激活状态 */
-p.scrollbar-item.active {
-  cursor: url(#{$static-url}/cur/Link.gif), auto !important;
-}
-p.scrollbar-item.active:active {
-  cursor: url(#{$static-url}/cur/Pin.gif), default !important;
-}
-
-/* 项目容器及激活状态 */
+// 3. 交互元素光标（Link 类型：通用可点击元素）
+// 通用链接类元素
+a,
+svg.arrow-down,
+svg.back-to-top,
+svg.icon,
+#toggle-button,
+i[class*="iconfont"],
+span.el-input__suffix *,
+div.event_history *,
+div.search_history *,
+div.el-popper.is-light.el-tooltip.el-popover.emoji-popover-container *,
+div.menus_item *,
+p.scrollbar-item.active,
+p.scrollbar-item,
 div.item_container .item,
-div.item_container .item * {
-  cursor: url(#{$static-url}/cur/Link.gif), auto !important;
-}
-div.item_container .item:active,
-div.item_container .item *:active {
-  cursor: url(#{$static-url}/cur/Pin.gif), default !important;
+div.item_container .item *,
+ul.menu-items,
+div.menus_items *,
+ul.menu-items *,
+[class*="el-tabs__item"],
+li[class*="number"],
+[class*="observe"],
+div.music-header,
+div.music-header *,
+span.text-overflow,
+[class*="lyric-word"],
+div.el-slider.is-vertical,
+div.el-slider.is-vertical *,
+i.el-icon.el-notification__closeBtn,
+summary.md-editor-code-head,
+summary.md-editor-code-head *,
+div.md-editor-catalog-link,
+div.md-editor-catalog-link *,
+span.el-checkbox__inner {
+  cursor: $cursor-link !important;
+
+  &:active {
+    cursor: $cursor-pin !important;
+  }
 }
 
-/* 卡片及激活状态 */
-div.h-92.md\:h-60.mt-4.flex.flex-col.md\:flex-row.card.overflow-hidden.shadow-md.mb-5.mx-2.dark\:bg-\[\#1D1D1D\] {
-  cursor: url(#{$static-url}/cur/Person.gif), auto !important;
-}
-div.h-92.md\:h-60.mt-4.flex.flex-col.md\:flex-row.card.overflow-hidden.shadow-md.mb-5.mx-2.dark\:bg-\[\#1D1D1D\]:active {
-  cursor: url(#{$static-url}/cur/Pin.gif), default !important;
+// 4. 功能类光标（Person 类型：特定交互元素）
+// 人物/操作类元素
+div[class="music-disc music-left"],
+button,
+div[class*="el-tooltip__trigger"],
+div[class="tag"] *,
+div[class="like"] *,
+div.h-92.md\:h-60.mt-4.flex.flex-col.md\:flex-row.card.overflow-hidden.shadow-md.mb-5.mx-2.dark\:bg-\[\#1D1D1D\],
+.swiper.swiper-initialized.swiper-horizontal.h-\[200px\].recommend.swiper-backface-hidden,
+div.category_article_container * {
+  cursor: $cursor-person !important;
+
+  &:active {
+    cursor: $cursor-pin !important;
+  }
 }
 
-/* 轮播及激活状态 */
-.swiper.swiper-initialized.swiper-horizontal.h-\[200px\].recommend.swiper-backface-hidden {
-  cursor: url(#{$static-url}/cur/Person.gif), auto !important;
-}
-.swiper.swiper-initialized.swiper-horizontal.h-\[200px\].recommend.swiper-backface-hidden:active {
-  cursor: url(#{$static-url}/cur/Pin.gif), default !important;
+// 5. 输入类光标（Text 类型：文本输入元素）
+input,
+textarea {
+  &:hover,
+  &:focus { // 增加 focus 状态，覆盖激活时的 Pin 光标
+    cursor: $cursor-text !important;
+  }
+
+  &:active:not(:focus) { // 仅未聚焦时激活才显示 Pin 光标
+    cursor: $cursor-pin !important;
+  }
 }
 
-/* 时间线激活项及激活状态 */
+// 6. 选择类光标（Link 类型：单选/复选框）
+label.el-checkbox,
+label.el-radio,
+label.el-checkbox *,
+label.el-radio * {
+  cursor: $cursor-link !important;
+
+  &:active {
+    cursor: $cursor-pin !important;
+  }
+}
+
+// 7. 特殊功能光标
+// 搜索相关元素
+div[class="search"],
+img[class*="music-img"] {
+  cursor: $cursor-link !important;
+
+  &:active {
+    cursor: $cursor-pin !important;
+  }
+}
+
+// 编辑器图片（精确操作）
+div.md-editor.md-editor-previewOnly * > img {
+  cursor: $cursor-precision !important;
+
+  &:active {
+    cursor: $cursor-pin !important;
+  }
+}
+
+// 随机图片（默认光标）
+div.random_image {
+  cursor: $cursor-normal !important;
+
+  &:active {
+    cursor: $cursor-pin !important;
+  }
+}
+
+// 时间线激活项
 div.timeline > div.item.item--active,
 div.timeline > div.item.item--active * {
-  cursor: url(#{$static-url}/cur/Link.gif), auto !important;
-}
-div.timeline > div.item.item--active:active,
-div.timeline > div.item.item--active *:active {
-  cursor: url(#{$static-url}/cur/Pin.gif), default !important;
+  cursor: $cursor-link !important;
+
+  &:active {
+    cursor: $cursor-pin !important;
+  }
 }
 
-/* 用户信息及激活状态 */
+// 用户信息区域
 div.user-info,
 div.user-info * {
-  cursor: url(#{$static-url}/cur/Link.gif), auto !important;
-}
-div.user-info:active,
-div.user-info *:active {
-  cursor: url(#{$static-url}/cur/Pin.gif), default !important;
+  cursor: $cursor-link !important;
+
+  &:active {
+    cursor: $cursor-pin !important;
+  }
 }
 
-/* 单选框及激活状态 */
-label.el-radio,
-label.el-radio * {
-  cursor: url(#{$static-url}/cur/Link.gif), auto !important;
-}
-label.el-radio:active,
-label.el-radio *:active {
-  cursor: url(#{$static-url}/cur/Pin.gif), default !important;
-}
-
-/* 头像上传及激活状态 */
+// 头像上传区域
 div.avatar-uploader,
 div.avatar-uploader * {
-  cursor: url(#{$static-url}/cur/Link.gif), auto !important;
-}
-div.avatar-uploader:active,
-div.avatar-uploader *:active {
-  cursor: url(#{$static-url}/cur/Pin.gif), default !important;
-}
-ul.menu-items,
-ul.menu-items *{
-  cursor: url(#{$static-url}/cur/Link.gif), auto !important;
-}
-ul.menu-items,
-ul.menu-items *:active{
-  cursor: url(#{$static-url}/cur/Pin.gif), auto !important;
-}
-div[class*="el-tabs__item"] {
-  cursor: url(#{$static-url}/cur/Link.gif), auto !important;
-}
-div[class*="el-tabs__item"]:active {
-  cursor: url(#{$static-url}/cur/Pin.gif), auto !important;
-}
-li[class*="number"] {
-  cursor: url(#{$static-url}/cur/Link.gif), auto !important;
-}
-li[class*="number"]:active {
-  cursor: url(#{$static-url}/cur/Pin.gif), auto !important;
-}
-div[class*="observe"] {
-  cursor: url(#{$static-url}/cur/Link.gif), auto !important;
-}
-div[class*="observe"]:active {
-  cursor: url(#{$static-url}/cur/Link.gif), auto !important;
-}
-div.music-header {
-   /* 应用于父元素的样式 */
-  cursor: url(#{$static-url}/cur/Link.gif), auto !important;
-}
-/* 匹配该 div 下的所有子元素（包括所有层级的后代） */
-div.music-header * {
-  /* 应用于所有子元素的样式 */
-  cursor: url(#{$static-url}/cur/Link.gif), auto !important;
-}
-div.music-header:active {
-  /* 应用于父元素的样式 */
-  cursor: url(#{$static-url}/cur/Pin.gif), auto !important;
-}
-/* 匹配该 div 下的所有子元素（包括所有层级的后代） */
-div.music-header *:active{
-  /* 应用于所有子元素的样式 */
-  cursor: url(#{$static-url}/cur/Pin.gif), auto !important;
-}
-span.text-overflow {
-  cursor: url(#{$static-url}/cur/Link.gif), auto !important;
-}
-span.text-overflow:active {
-  cursor: url(#{$static-url}/cur/Pin.gif), auto !important;
-}
-div[class*="lyric-word"] {
-  cursor: url(#{$static-url}/cur/Link.gif), auto !important;
-}
-div[class*="lyric-word"]:active {
-  cursor: url(#{$static-url}/cur/Pin.gif), auto !important;
-}
-div.el-slider.is-vertical {
-  /* 应用于该 div 自身的样式 */
-  cursor: url(#{$static-url}/cur/Link.gif), auto !important;
+  cursor: $cursor-link !important;
+
+  &:active {
+    cursor: $cursor-pin !important;
+  }
 }
 
-/* 匹配该 div 下的所有内容（所有后代元素） */
-div.el-slider.is-vertical * {
-  /* 应用于所有子元素的样式 */
-  cursor: url(#{$static-url}/cur/Link.gif), auto !important;
+// 垂直菜单
+ul.el-menu.el-menu--vertical.menu * {
+  cursor: $cursor-link !important;
+
+  &:active {
+    cursor: $cursor-pin !important;
+  }
 }
-i.el-icon.el-notification__closeBtn,
-i.el-icon.el-notification__closeBtn * {
-  /* 应用于所有子元素的样式 */
-  cursor: url(#{$static-url}/cur/Link.gif), auto !important;
+
+// 音乐信息区域
+div[class="music-info"] {
+  cursor: $cursor-link !important;
+
+  &:active {
+    cursor: $cursor-pin !important;
+  }
 }
-i.el-icon.el-notification__closeBtn:active,
-i.el-icon.el-notification__closeBtn *:active {
-  /* 应用于所有子元素的样式 */
-  cursor: url(#{$static-url}/cur/Link.gif), auto !important;
+
+// 8. 兼容性修复
+// 修复 SVG 图标光标不生效问题
+svg {
+  pointer-events: auto; // 确保 SVG 能响应光标事件
 }
-summary.md-editor-code-head,
-summary.md-editor-code-head * {
-  /* 应用于所有子元素的样式 */
-  cursor: url(#{$static-url}/cur/Link.gif), auto !important;
+
+// 修复按钮 hover 光标优先级
+button {
+  &:hover {
+    cursor: $cursor-person !important;
+  }
 }
-div.md-editor-catalog-link,
-div.md-editor-catalog-link * {
-  cursor: url(#{$static-url}/cur/Link.gif), auto !important;
-}
-span.el-checkbox__inner,
-span.el-checkbox__inner * {
-  cursor: url(#{$static-url}/cur/Link.gif), auto !important;
+
+// 修复禁用状态下的光标继承问题
+[disabled],
+[disabled] * {
+  cursor: $cursor-unavailable !important;
 }

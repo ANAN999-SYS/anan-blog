@@ -4,14 +4,18 @@
   // 留言板说明背景
   --mao-bg-message: #f5f5f5;
   // 分类列表背景
-  --mao-bg-category: linear-gradient(135deg, #f54ea2, #ff7676);
+  --mao-bg-category: linear-gradient(120deg, #2a88f0, #1f75d6);
   // 首页波浪
   --mao-bg-wave01: rgba(240, 248, 255,0.7);
   --mao-bg-wave02: rgba(240, 248, 255,0.5);
   --mao-bg-wave03: rgba(240, 248, 255,0.3);
   --mao-bg-wave04: rgba(240, 248, 255,1);
   // footer
-  --mao-bg-footer: linear-gradient(135deg,#f6ceec,#d939cd);
+  --mao-bg-footer: linear-gradient(220.55deg, #7CF7FF 0%, #4B73FF 100%);
+  //tag
+  --mao-bg-tag: linear-gradient(120deg, #2a88f0, #1f75d6);
+  //文章标题
+  --mao-bg-article-title:linear-gradient(120deg, #2a88f0, #1f75d6);
   // 评论框背景
   --mao-bg-comment: #F2F2F3;
   // 回复用户名
@@ -41,7 +45,7 @@
   --hr-border: #a9d5f4;
   --top: #f26c60;
   --error: #f56c6c;
-  --music-main-active: #62c28a;
+  --music-main-active: #5cbfef;
   --music-main-bg: #101827;
   --shadow-mask-bg: rgba(0, 0, 0, 0.5);
   --shadow-button-bg: rgba(255, 255, 255, 0.5);
@@ -66,6 +70,8 @@ html.dark {
   --mao-bg-wave03: rgba(70, 70, 70, 0.3);
   --mao-bg-wave04: rgba(70, 70, 70, 1);
   --mao-bg-footer: linear-gradient(135deg,#000c40,#607d8b);
+  --mao-bg-tag: linear-gradient(120deg,#000c40,#607d8b);
+  --mao-bg-article-title:linear-gradient(120deg,#000c40,#607d8b);
   --mao-bg-right: #292D3DFF;
   --mao-bg-left: #52305e;
   --mao-bg-left-card: #714e79;

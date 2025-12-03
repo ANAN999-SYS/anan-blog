@@ -275,7 +275,7 @@ onBeforeUnmount(() => {
   }
 
   &__left {
-    width: 50%;
+    width: 48%;
     height: 100%;
     display: flex;
     flex-direction: column;
