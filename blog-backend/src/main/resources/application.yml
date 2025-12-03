@@ -169,15 +169,10 @@ http_pool:
   socket_timeout: 65000
   validate_after_inactivity: 2000
 ## 连接 minio
-#minio:
-#  endpoint: http://100.64.2.2:9000
-#  accessKey: 884ncPPhvlMT3JTCD6L8
-#  secretKey: dntjcfZ6r8GRjtS9ezkC9Raa9R3jXM8Ma9Hb7Yrx
-#  bucketName:  minio-blog
 minio:
-  endpoint: https://blog.zfgh.top
-  accessKey: QIgjdnOoA7gpTy2dcuI4
-  secretKey: x7Eg9ynjN9YOVrnfcCCFQaRQaclwnQFuVCzv5cai
-  bucketName: anan-blog
+  endpoint: http://100.64.2.2:9000
+  accessKey: 884ncPPhvlMT3JTCD6L8
+  secretKey: dntjcfZ6r8GRjtS9ezkC9Raa9R3jXM8Ma9Hb7Yrx
+  bucketName:  minio-blog
 #代理
   proxy: static
